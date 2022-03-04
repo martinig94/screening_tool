@@ -16,6 +16,7 @@ def get_file_name_info(folder_path):
 
 
 def get_names(index):
+    # The first two parts are numbers
     name = index.split("_")[2:]
     name = ' '.join(name)
     return name
@@ -28,13 +29,14 @@ def get_email(file_path):
     # get number of pages
     NumPages = object.getNumPages()
 
-    # define keyterms
+    # Get text
     text_file =[]
     with open(file_path, 'rb') as f:
         extracted_text = slate.PDF(f)
     for p in range(NumPages):
         text_file.append(extracted_text[p])
     x =("").join(text_file)
+    # Find email
     match = re.search(r'[\w.+-]+@[\w-]+\.[\w.-]+', x)
     email_address = match.group(0)
     return email_address
